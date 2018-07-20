@@ -1,4 +1,4 @@
-var friendData = require("../data/friendData");
+var friendData = require("../data/friends");
 
 module.exports = function (app) {
 
@@ -7,17 +7,24 @@ module.exports = function (app) {
     });
 
     app.post("/api/friends", function (req, res) {
+        var currentReturnObject;
+        var currentLowestTotal = null;
+        for (i = 0; i < friendData.length; i++) {
+            let total = 0;
+            for (j = 0; j < friendData[i].scores.length; j++) {
 
-        //    need to code in best match math here.
+                total += Math.abs(friendData[i].scores[j] - parseInt(req.body.scores[j]));
 
+            };
+            if (total < currentLowestTotal || currentLowestTotal === null) {
+                currentLowestTotal = total;
+                currentReturnObject = friendData[i];
+            }
+        };
 
-        // if (tableData.length < 5) {
-        //     tableData.push(req.body);
-        //     res.json(true);
-        // }
-        // else {
-        //     waitListData.push(req.body);
-        //     res.json(false);
-        // }
+        friendData.push(req.body);
+
+        res.json(currentReturnObject);
+
     });
 };  
