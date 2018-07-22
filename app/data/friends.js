@@ -1,9 +1,3 @@
-var friendData = [{
-    name: "Blake",
-    photo: "blah",
-    scores: [
-        5, 5, 5, 5, 5, 5, 5, 5, 5, 5
-    ]
-}];
+var friendData = [];
 
 module.exports = friendData;
